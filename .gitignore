@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+
+# 输出目录
+mineru_output/
+
+# 系统文件
+.DS_Store
+Thumbs.db
