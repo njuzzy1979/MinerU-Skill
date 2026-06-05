@@ -19,6 +19,22 @@ description: Use this skill to parse PDFs, Office files (doc/docx/ppt/pptx/xls/x
 
 脚本位置：`scripts/mineru_parse.py`（本 skill 目录下的 scripts/ 子目录，由当前 runtime 解析路径）。
 
+### 🛑 STOP: 检查 Token
+
+在执行任何操作之前，先验证环境变量：
+
+```bash
+# 检查是否有任一 Token 可用
+echo $MINERU_TOKEN || echo $MINERU_TOKEN_1
+```
+
+如果两个都为空 → **停止执行**，引导用户：
+> "MinerU API Token 未设置。请先到 https://mineru.net/apiManage 申请 Token，然后设置环境变量：
+> - Linux/macOS: `export MINERU_TOKEN='your-token'`
+> - Windows: `[System.Environment]::SetEnvironmentVariable('MINERU_TOKEN', 'your-token', 'User')`（需重启终端）"
+
+Token 确认存在后继续。
+
 ### Step 1: 收集输入文件
 
 ```
@@ -30,6 +46,8 @@ description: Use this skill to parse PDFs, Office files (doc/docx/ppt/pptx/xls/x
 - 目录输入时自动收集目录下所有支持类型的文件
 - 数量超过 50 个时拒绝并提示分批
 
+🔴 **CHECKPOINT** — 文件数 > 10 时，列出完整文件清单并确认用户是否继续。文件数 > 50 时，🛑 STOP 并提示用户分批。
+
 ### Step 2: 确认参数
 
 ```
@@ -38,6 +56,8 @@ description: Use this skill to parse PDFs, Office files (doc/docx/ppt/pptx/xls/x
 ```
 
 按用户需求组合参数，默认值见下方参数速查表。用户未明确指定时使用默认值。
+
+🔴 **CHECKPOINT** — 如果输入文件包含 `.html` 文件，必须确认 `--model-version MinerU-HTML` 已设置，且**不传** `--extra-formats`。HTML 用默认 vlm 模式或在 HTML 文件上启用 extra_formats 都会导致解析失败。
 
 ### Step 3: 调用脚本
 
