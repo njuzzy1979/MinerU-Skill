@@ -187,3 +187,13 @@ python scripts/mineru_parse.py page.html --model-version MinerU-HTML
 | Windows schannel exit 56 | 无需处理，脚本已自动识别为上传成功 | — |
 | `state=failed`（不含上述错误码） | 查看 `<output-dir>/summary.json` 中对应条目的 `err_msg` | 检查文件是否损坏、是否加密、是否为纯图片扫描件 |
 | 轮询超时（30 分钟未完成） | 检查网络连接，确认可访问 `mineru.net` | 重新提交，`--page-ranges` 缩小范围 |
+
+## 参考资源
+
+| 资源 | 位置 |
+|------|------|
+| 核心脚本 | `scripts/mineru_parse.py`（本 skill 目录下） |
+| MinerU 官网 | https://mineru.net |
+| API Token 申请 | https://mineru.net/apiManage |
+| API 文档 | https://mineru.net/docs/api |
+| 详细移植手册 | 本仓库 `mineru移植与使用说明.md` |
